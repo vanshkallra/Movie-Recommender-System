@@ -93,7 +93,7 @@ selected_movie = st.selectbox(
 
 
 if st.button("Recommend"):
-    try:   
+    # try:   
         # st.success(f'Recommended movies for {selected_movie}')
         names,posters = recommend(selected_movie)
         col1, col2, col3, col4, col5 = st.columns(5)
@@ -129,5 +129,5 @@ if st.button("Recommend"):
         # gc.collect()  # Force garbage collection
             
    
-    except Exception as e:
-        st.warning("Some error occured")
+    # except Exception as e:
+    #     st.warning("Some error occured")
