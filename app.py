@@ -1,6 +1,7 @@
 import streamlit as st
 import pickle
 import bz2file as bz2
+import gc
 
 import requests
 import os
@@ -35,52 +36,52 @@ def fetch_poster(movie_id):
     return "http://image.tmdb.org/t/p/w500" + data['poster_path']
     # st.write(response.text)
     
-def decompress_pickle(file):
-    with bz2.BZ2File(file, 'rb') as f:
-        data = pickle.load(f)
-    return data
-
-def recommend(movie):
-    # Load only when needed
-    movies = decompress_pickle('movies_list.pbz2')
-    similarity = decompress_pickle('similarity.pbz2')
-    
-    movie_index = movies[movies['title'] == movie].index[0]
-    distances = similarity[movie_index]
-    movies_list = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:6]
-    
-    recommended_movies = []
-    recommended_movies_posters = []
-    
-    for i in movies_list:
-        movie_id = movies.iloc[i[0]]['id']
-        recommended_movies.append(movies.iloc[i[0]]['title'])
-        recommended_movies_posters.append(fetch_poster(movie_id))
-    
-    
-    
-    return recommended_movies, recommended_movies_posters
-
-import gc
-
-
-
+# def decompress_pickle(file):
+#     with bz2.BZ2File(file, 'rb') as f:
+#         data = pickle.load(f)
+#     return data
 
 # def recommend(movie):
-#     movie_index = movies[movies['title']==movie].index[0]
+#     # # Load only when needed
+#     # movies = decompress_pickle('movies_list.pbz2')
+#     # similarity = decompress_pickle('similarity.pbz2')
+    
+#     movie_index = movies[movies['title'] == movie].index[0]
 #     distances = similarity[movie_index]
-#     movies_list = sorted(list(enumerate(distances)), reverse=True, key = lambda x : x[1])[1:6]
+#     movies_list = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:6]
     
 #     recommended_movies = []
-#     recommended_movies_posters =[]
+#     recommended_movies_posters = []
     
 #     for i in movies_list:
 #         movie_id = movies.iloc[i[0]]['id']
 #         recommended_movies.append(movies.iloc[i[0]]['title'])
-#         # Fetching posters from api using movie id
 #         recommended_movies_posters.append(fetch_poster(movie_id))
     
-#     return recommended_movies,recommended_movies_posters
+    
+    
+#     return recommended_movies, recommended_movies_posters
+
+
+
+
+
+
+def recommend(movie):
+    movie_index = movies[movies['title']==movie].index[0]
+    distances = similarity[movie_index]
+    movies_list = sorted(list(enumerate(distances)), reverse=True, key = lambda x : x[1])[1:6]
+    
+    recommended_movies = []
+    recommended_movies_posters =[]
+    
+    for i in movies_list:
+        movie_id = movies.iloc[i[0]]['id']
+        recommended_movies.append(movies.iloc[i[0]]['title'])
+        # Fetching posters from api using movie id
+        recommended_movies_posters.append(fetch_poster(movie_id))
+    
+    return recommended_movies,recommended_movies_posters
     
 
 
@@ -122,10 +123,10 @@ if st.button("Recommend"):
             st.image(posters[4])
             st.write(names[4])
             
-        # After generating recommendations
-        del movies
-        del similarity
-        gc.collect()  # Force garbage collection
+        # # After generating recommendations
+        # del movies
+        # del similarity
+        # gc.collect()  # Force garbage collection
             
    
     except Exception as e:
