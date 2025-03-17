@@ -1,5 +1,7 @@
 import streamlit as st
 import pickle
+from compress_pickle import dump
+from compress_pickle import load
 import requests
 import os
 from dotenv import load_dotenv
