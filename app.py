@@ -59,6 +59,13 @@ def recommend(movie):
     
     return recommended_movies, recommended_movies_posters
 
+import gc
+
+# After generating recommendations
+del movies
+del similarity
+gc.collect()  # Force garbage collection
+
 
 # def recommend(movie):
 #     movie_index = movies[movies['title']==movie].index[0]
