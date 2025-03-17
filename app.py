@@ -1,5 +1,6 @@
 import streamlit as st
 import pickle
+import bz2file as bz2
 
 import requests
 import os
@@ -8,9 +9,17 @@ load_dotenv()
 
 st.title("Movie Recommender System")
 
-movies = pickle.load(open('movies_list.pkl','rb'))
-similarity = pickle.load(open('similarity.pkl','rb'))
+def decompress_pickle(file):
+    with bz2.BZ2File(file, 'rb') as f:
+        data = pickle.load(f)
+    return data
 
+
+# movies = pickle.load(open('movies_list.pkl','rb'))
+# similarity = pickle.load(open('similarity.pbz2','rb'))
+
+movies = decompress_pickle('movies_list.pbz2')
+similarity = decompress_pickle('similarity.pbz2')
 
 
 API_KEY = os.environ.get("TMDB_API_KEY")
