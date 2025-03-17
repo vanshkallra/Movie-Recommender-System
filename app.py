@@ -57,14 +57,13 @@ def recommend(movie):
         recommended_movies.append(movies.iloc[i[0]]['title'])
         recommended_movies_posters.append(fetch_poster(movie_id))
     
+    
+    
     return recommended_movies, recommended_movies_posters
 
 import gc
 
-# After generating recommendations
-del movies
-del similarity
-gc.collect()  # Force garbage collection
+
 
 
 # def recommend(movie):
@@ -122,6 +121,11 @@ if st.button("Recommend"):
             
             st.image(posters[4])
             st.write(names[4])
+            
+        # After generating recommendations
+        del movies
+        del similarity
+        gc.collect()  # Force garbage collection
             
    
     except Exception as e:
