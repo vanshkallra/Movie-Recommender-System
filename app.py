@@ -18,8 +18,8 @@ def decompress_pickle(file):
 # movies = pickle.load(open('movies_list.pkl','rb'))
 # similarity = pickle.load(open('similarity.pbz2','rb'))
 
-movies = decompress_pickle('movies_list.pbz2')
-similarity = decompress_pickle('similarity.pbz2')
+movies = decompress_pickle('movies_list_q.pbz2')
+similarity = decompress_pickle('similarity_q.pbz2')
 
 
 API_KEY = os.environ.get("TMDB_API_KEY")
