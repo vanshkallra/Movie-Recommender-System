@@ -2,3 +2,7 @@
 port = 10000
 enableCORS = false
 enableXsrfProtection = false
+runOnSave = true
+
+[client]
+timeout = 300
