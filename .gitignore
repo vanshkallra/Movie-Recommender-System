@@ -3,3 +3,5 @@
 .ipynb_checkpoints
 .vscode
 /Explainations
+similarity.pkl
+movies_list.pkl
